@@ -1,0 +1,6 @@
+.vscode/
+build/
+test/
+*.o
+/CMakeLists.txt
+main.cpp
