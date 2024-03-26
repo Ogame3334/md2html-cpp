@@ -5,5 +5,6 @@
 #include "inc/MarkdownParser.hpp"
 #include "inc/AstConverter.hpp"
 #include "inc/Ast2HtmlCompiler.hpp"
+#include "inc/SimpleMethod.hpp"
 
 #endif
