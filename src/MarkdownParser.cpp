@@ -12,16 +12,43 @@ namespace m2h
 
         JsonObj childObj;
         JsonArray childChildren;
+        // Codeに関するもの
+        bool isCode = false;
+        String codeLang = "";
         while(std::getline(ss, line, '\n')){
             lines.push_back(line);
         }
+        String buf = "";
         for(auto lines_iter = lines.cbegin(); lines_iter != lines.cend(); ++lines_iter){
             line = *lines_iter;
-            String buf = "";
-            auto iter = line.cbegin();
             String objType = "";
-            if(String content = ""; this->judgeLineFeature(objType, line, content)){
+
+            if(isCode){
+                if(line == "```"){
+                    isCode = false;
+                    objType = ObjType::Code;
+                    childObj.emplace(KeyType::CodeLang, codeLang);
+                }
+                else{
+                    childChildren.push_back(
+                        JsonValue{line}
+                    );
+                    continue;
+                }
+            }
+            else if(line.empty()){
+                objType = ObjType::Paragraph;
                 if(childChildren.empty()){
+                    continue;
+                }
+            }
+            else if(String content = ""; this->judgeLineFeature(objType, line, content)){
+                if(childChildren.empty()){
+                    if(objType == ObjType::Code){
+                        isCode = true;
+                        codeLang = content;
+                        continue;
+                    }
                     auto temp = this->readContent(content);
                     childChildren.insert(childChildren.end(), temp.begin(), temp.end());
                 }
@@ -125,6 +152,12 @@ namespace m2h
         }
         else if(String prefix = "### "; sentence.starts_with(prefix)){
             objType = ObjType::SubSubHeading;
+            flag = true;
+            contentSentence = sentence;
+            contentSentence.erase(0, prefix.size());
+        }
+        else if(String prefix = "```"; sentence.starts_with(prefix)){
+            objType = ObjType::Code;
             flag = true;
             contentSentence = sentence;
             contentSentence.erase(0, prefix.size());

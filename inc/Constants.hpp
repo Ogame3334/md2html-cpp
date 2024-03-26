@@ -29,6 +29,7 @@ namespace m2h
         static const String Children = "children";
         static const String Value = "value";
         static const String Style = "style";
+        static const String CodeLang = "codelang";
 
     }
     namespace TextStyle
