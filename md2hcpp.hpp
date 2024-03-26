@@ -3,5 +3,6 @@
 
 #include "inc/Structures.hpp"
 #include "inc/MarkdownParser.hpp"
+#include "inc/AstConverter.hpp"
 
 #endif

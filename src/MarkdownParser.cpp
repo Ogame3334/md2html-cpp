@@ -31,7 +31,7 @@ namespace m2h
                 }
                 else{
                     childChildren.push_back(
-                        JsonValue{line}
+                        JsonValue{this->createContext(line)}
                     );
                     continue;
                 }
@@ -69,7 +69,7 @@ namespace m2h
             childObj.clear();
             childChildren.clear();
         }
-        this->m_ast.emplace(std::make_pair("children", rootChildren));
+        this->m_ast.emplace("children", rootChildren);
     }
     JsonArray MarkdownParser::readContent(String content) const{
         bool shouldLn = false;

@@ -14,6 +14,7 @@ public:
     String serialize() const{
         return JsonValue{this->m_ast}.serialize();
     }
+    JsonObj getMdAst() const { return this->m_ast; } 
 private:
     String m_markdown;
     JsonObj m_ast;
