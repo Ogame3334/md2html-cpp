@@ -31,7 +31,7 @@ namespace m2h
                 }
                 else{
                     childChildren.push_back(
-                        JsonValue{this->createContext(line)}
+                        JsonValue{this->createContext(line + '\n')}
                     );
                     continue;
                 }

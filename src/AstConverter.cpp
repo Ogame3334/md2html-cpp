@@ -5,6 +5,7 @@ namespace m2h
 {
     void AstConverter::convert(){
         this->m_htmlAst.emplace(KeyType::Type, ObjType::Root);
+        this->m_htmlAst.emplace(KeyType::Tag, HtmlTag::Div);
         JsonArray rootChildren;
 
         auto mdAstChildren = this->m_mdAst["children"].get<JsonArray>();
@@ -84,8 +85,11 @@ namespace m2h
         obj.emplace(KeyType::Children, children);
         if(_obj[KeyType::Type].get<String>() == ObjType::Code){
             JsonObj parentObj;
-            parentObj.emplace(KeyType::Type, HtmlTag::Pre);
-            parentObj.emplace(KeyType::Children, obj);
+            JsonArray parentArray;
+            parentArray.push_back(JsonValue{obj});
+            parentObj.emplace(KeyType::Type, ObjType::Element);
+            parentObj.emplace(KeyType::Tag, HtmlTag::Pre);
+            parentObj.emplace(KeyType::Children, parentArray);
             return parentObj;
         }
         else{

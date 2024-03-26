@@ -3,6 +3,8 @@ enable_language(CXX)
 
 set(sources 
     MarkdownParser.cpp
+    AstConverter.cpp
+    Ast2HtmlCompiler.cpp
 )
 
 foreach(source ${sources})

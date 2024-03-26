@@ -4,5 +4,6 @@
 #include "inc/Structures.hpp"
 #include "inc/MarkdownParser.hpp"
 #include "inc/AstConverter.hpp"
+#include "inc/Ast2HtmlCompiler.hpp"
 
 #endif

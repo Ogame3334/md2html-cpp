@@ -34,6 +34,7 @@ namespace m2h
     namespace HtmlTag
     {
         static const String None = "none";
+        static const String Div = "div";
         static const String P = "p";
         static const String H1 = "h1";
         static const String H2 = "h2";

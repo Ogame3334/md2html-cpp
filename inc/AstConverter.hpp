@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../inc/Structures.hpp"
+#include "Structures.hpp"
 
 namespace m2h
 {
