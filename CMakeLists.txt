@@ -5,6 +5,8 @@ set(sources
     src/MarkdownParser.cpp
     src/AstConverter.cpp
     src/Ast2HtmlCompiler.cpp
+    src/SimpleMethod.cpp
+    src/less20functions.cpp
 )
 
 add_library(

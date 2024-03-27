@@ -1,5 +1,6 @@
 #include "../inc/Constants.hpp"
 #include "../inc/Ast2HtmlCompiler.hpp"
+#include "../inc/less20functions.hpp"
 
 namespace m2h
 {
@@ -15,7 +16,11 @@ namespace m2h
 
     void Ast2HtmlCompiler::readAst(std::ostringstream& oss, JsonValue value){
         auto obj = value.get<JsonObj>();
+        #if __cplusplus > 201703L
         if(obj.contains(KeyType::Children)){
+        #else
+        if(contains(obj, KeyType::Children)){
+        #endif
             // std::cout << obj[KeyType::Tag].get<String>() << std::endl;
             oss << "<";
             oss << obj[KeyType::Tag].get<String>();

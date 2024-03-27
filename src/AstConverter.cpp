@@ -1,5 +1,6 @@
 #include "../inc/Constants.hpp"
 #include "../inc/AstConverter.hpp"
+#include "../inc/less20functions.hpp"
 
 namespace m2h
 {
@@ -51,7 +52,11 @@ namespace m2h
         JsonArray children;
         obj[KeyType::Type] = JsonValue{ObjType::Element};
         obj[KeyType::Tag] = JsonValue{this->typeConvert(_obj[KeyType::Type].get<String>())};
+        #if __cplusplus > 201703L
         if(_obj.contains(KeyType::Children)){
+        #else
+        if(contains(_obj, KeyType::Children)){
+        #endif
             auto array = _obj[KeyType::Children].get<JsonArray>();
             for(auto iter = array.begin(); iter != array.end(); ++iter){
                 children.push_back(

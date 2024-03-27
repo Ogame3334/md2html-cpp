@@ -1,4 +1,5 @@
 #include "../inc/MarkdownParser.hpp"
+#include "../inc/less20functions.hpp"
 #include <sstream>
 
 namespace m2h
@@ -75,7 +76,11 @@ namespace m2h
         bool shouldLn = false;
         JsonArray children;
         String buf = "";
+        #if __cplusplus > 201703L
         if(content.ends_with("  ")){
+        #else
+        if(ends_with(content, "  ")){
+        #endif
             shouldLn = true;
             content.erase(content.size() - 2, 2);
         }
@@ -138,25 +143,41 @@ namespace m2h
     }
     bool MarkdownParser::judgeLineFeature(String& objType, String sentence, String& contentSentence) const{
         bool flag = false;
+        #if __cplusplus > 201703L
         if(String prefix = "# "; sentence.starts_with(prefix)){
+        #else
+        if(String prefix = "# "; starts_with(sentence, prefix)){
+        #endif
             objType = ObjType::Heading;
             flag = true;
             contentSentence = sentence;
             contentSentence.erase(0, prefix.size());
         }
+        #if __cplusplus > 201703L
         else if(String prefix = "## "; sentence.starts_with(prefix)){
+        #else
+        else if(String prefix = "## "; starts_with(sentence, prefix)){
+        #endif
             objType = ObjType::SubHeading;
             flag = true;
             contentSentence = sentence;
             contentSentence.erase(0, prefix.size());
         }
+        #if __cplusplus > 201703L
         else if(String prefix = "### "; sentence.starts_with(prefix)){
+        #else
+        else if(String prefix = "### "; starts_with(sentence, prefix)){
+        #endif
             objType = ObjType::SubSubHeading;
             flag = true;
             contentSentence = sentence;
             contentSentence.erase(0, prefix.size());
         }
-        else if(String prefix = "```"; sentence.starts_with(prefix)){
+        #if __cplusplus > 201703L
+        else if(String prefix = "``` "; sentence.starts_with(prefix)){
+        #else
+        else if(String prefix = "``` "; starts_with(sentence, prefix)){
+        #endif
             objType = ObjType::Code;
             flag = true;
             contentSentence = sentence;
