@@ -102,6 +102,9 @@ namespace m2h
                         buf = "";
                         break;
                     }
+                    if(iter == content.cend()){
+                        break;
+                    }
                     buf += *iter;
                 }
             }
@@ -115,7 +118,7 @@ namespace m2h
                     buf = "";
                 }
                 for(;iter != content.cend(); ++iter){
-                    if((*iter) == '*' and (*(iter + 1) == '*')){
+                    if((*iter) == '*' and (*(iter + 1)) == '*'){
                         ++iter;
                         ++iter;
                         children.push_back(JsonValue{
@@ -124,10 +127,21 @@ namespace m2h
                         buf = "";
                         break;
                     }
+                    if(iter == content.cend()){
+                        break;
+                    }
                     buf += *iter;
                 }
             }
+            if(iter == content.cend()){
+                break;
+            }
             buf += *iter;
+            // if(iter == content.cend() - 1){
+            //     children.push_back(JsonValue{
+            //         this->createContext(buf)
+            //     });
+            // }
         }
         if(buf != ""){
             children.push_back(JsonValue{
@@ -174,9 +188,9 @@ namespace m2h
             contentSentence.erase(0, prefix.size());
         }
         #if __cplusplus > 201703L
-        else if(String prefix = "``` "; sentence.starts_with(prefix)){
+        else if(String prefix = "```"; sentence.starts_with(prefix)){
         #else
-        else if(String prefix = "``` "; starts_with(sentence, prefix)){
+        else if(String prefix = "```"; starts_with(sentence, prefix)){
         #endif
             objType = ObjType::Code;
             flag = true;
