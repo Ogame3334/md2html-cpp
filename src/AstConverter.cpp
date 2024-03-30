@@ -36,6 +36,9 @@ namespace m2h
         else if(type == ObjType::Paragraph){
             result = HtmlTag::P;
         }
+        else if(type == ObjType::Ln){
+            result = HtmlTag::Br;
+        }
         else if(type == ObjType::InlineCode){
             result = HtmlTag::Code;
         }
@@ -71,6 +74,13 @@ namespace m2h
                 childObj.emplace(KeyType::Tag, HtmlTag::Code);
                 childObj.emplace(KeyType::Style, TextStyle::Plane);
                 childObj.emplace(KeyType::Value, _obj[KeyType::Value].get<String>());
+            }
+            else if(_obj[KeyType::Type].get<String>() == ObjType::Ln){
+                childObj.emplace(KeyType::Type, ObjType::Element);
+                childObj.emplace(KeyType::Tag, HtmlTag::Br);
+                childObj.emplace(KeyType::Style, TextStyle::Plane);
+                childObj.emplace(KeyType::Value, "");
+
             }
             else{
                 childObj.emplace(KeyType::Type, ObjType::Element);

@@ -34,6 +34,9 @@ namespace m2h
             oss << obj[KeyType::Tag].get<String>();
             oss << ">\n";
         }
+        else if(obj[KeyType::Tag].get<String>() == HtmlTag::Br){
+            oss << "<br>";
+        }
         else{
             // std::cout << "こっちも来てるぜ！！！" << std::endl;
             String str = obj[KeyType::Value].get<String>();
